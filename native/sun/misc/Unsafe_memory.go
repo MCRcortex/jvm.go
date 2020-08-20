@@ -3,6 +3,7 @@ package misc
 import (
 	"encoding/binary"
 	"math"
+	"os"
 
 	"github.com/zxh0/jvm.go/rtda"
 	"github.com/zxh0/jvm.go/rtda/heap"
@@ -29,6 +30,7 @@ func init() {
 	_unsafe(memGetFloat, "getFloat", "(J)F")
 	_unsafe(memPutDouble, "putDouble", "(JD)V")
 	_unsafe(memGetDouble, "getDouble", "(J)D")
+	_unsafe(memPageSize, "pageSize", "()I")
 }
 
 // public native long allocateMemory(long bytes);
@@ -191,4 +193,14 @@ func _memGet(frame *rtda.Frame) []byte {
 	// frame.GetRefVar(0) // this
 	address := frame.GetLongVar(1)
 	return memoryAt(address)
+}
+
+
+
+
+//public native int pageSize()
+//()I
+func memPageSize(frame *rtda.Frame) {
+	// frame.GetRefVar(0) // this
+	frame.PushInt(os.Getpagesize())
 }
