@@ -202,5 +202,5 @@ func _memGet(frame *rtda.Frame) []byte {
 //()I
 func memPageSize(frame *rtda.Frame) {
 	// frame.GetRefVar(0) // this
-	frame.PushInt(os.Getpagesize())
+	frame.PushInt(int32(os.Getpagesize()))
 }
